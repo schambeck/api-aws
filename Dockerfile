@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17-jdk-alpine AS build
+FROM amazoncorretto:17-alpine-jdk AS build
 WORKDIR /workspace/app
 
 COPY mvnw .
@@ -12,7 +12,7 @@ RUN ../mvnw package -DskipTests
 WORKDIR /workspace/app/api-aws/target
 RUN java -Djarmode=layertools -jar api-aws*.jar extract
 
-FROM eclipse-temurin:17-jdk-alpine
+FROM amazoncorretto:17-alpine-jdk
 ARG TARGET=/workspace/app/api-aws/target
 COPY --from=build ${TARGET}/dependencies/ ./
 COPY --from=build ${TARGET}/snapshot-dependencies/ ./
