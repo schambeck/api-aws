@@ -15,7 +15,7 @@ public class AwsApplication {
     
     @GetMapping("api/hello")
     public String hello() {
-        return "Hello World v2";
+        return "Hello World v3";
     }
     
 }
