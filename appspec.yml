@@ -1,7 +1,7 @@
 version: 0.0
 os: linux
 files:
-  - source: target/api-aws-1.0.0.jar
+  - source: api-aws-1.0.0.jar
     destination: /opt/api-aws/
 permissions:
   - object: /opt/api-aws/api-aws-1.0.0.jar
