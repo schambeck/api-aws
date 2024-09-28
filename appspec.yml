@@ -15,7 +15,3 @@ hooks:
     - location: scripts/start-process.sh
       timeout: 180
       runas: root
-  Install:
-    - location: scripts/install.sh
-      timeout: 180
-      runas: root
