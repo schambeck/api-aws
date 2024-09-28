@@ -7,23 +7,23 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+      - aws ecr get-login-password --region sa-east-1 | docker login --username AWS --password-stdin 593793055971.dkr.ecr.sa-east-1.amazonaws.com
   build:
     commands:
       - echo Building the Docker image...
       - ls -lah
       - docker images
-      - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
-      - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+      - docker build -t schambeck/api-aws:latest .
+      - docker tag schambeck/api-aws:latest 593793055971.dkr.ecr.sa-east-1.amazonaws.com/schambeck/api-aws:latest
 #      - docker build -t api-aws:latest .
-#      - docker tag api-aws:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+#      - docker tag api-aws:latest 593793055971.dkr.ecr.sa-east-1.amazonaws.com/schambeck/api-aws:latest
       - docker images
   post_build:
     commands:
       - echo Pushing the Docker image...
       - ls -lah
       - docker images
-      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+      - docker push 593793055971.dkr.ecr.sa-east-1.amazonaws.com/schambeck/api-aws:latest
       - ls -lah
       - docker images
 
