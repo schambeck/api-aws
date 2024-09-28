@@ -12,6 +12,5 @@ artifacts:
   files:
     - target/api-aws-1.0.0.jar
     - scripts/start-process.sh
-    - scripts/stop-process.sh
     - appspec.yml
   discard-paths: yes
