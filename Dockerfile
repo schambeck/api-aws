@@ -1,4 +1,4 @@
-FROM amazoncorretto:17-alpine-jdk
+FROM amazoncorretto:17-alpine-jdk AS build
 WORKDIR /workspace/app
 
 COPY mvnw .
@@ -10,4 +10,8 @@ COPY pom.xml api-aws
 WORKDIR /workspace/app/api-aws
 RUN ../mvnw package -DskipTests
 WORKDIR /workspace/app/api-aws/target
+
+FROM amazoncorretto:17-alpine-jdk
+ARG TARGET=/workspace/app/api-aws/target
+COPY --from=build ${TARGET}/api-aws*.jar ./
 ENTRYPOINT ["java", "-jar", "api-aws-1.0.0.jar"]
