@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @SpringBootApplication
-public class ApiAwsApplication {
+public class AwsApplication {
     
     public static void main(String[] args) {
-        SpringApplication.run(ApiAwsApplication.class, args);
+        SpringApplication.run(AwsApplication.class, args);
     }
     
     @GetMapping("api/hello")
