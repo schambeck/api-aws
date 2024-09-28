@@ -1,29 +1,21 @@
 version: 0.2
 
 phases:
-  install:
-    runtime-versions:
-      java: corretto17
-    commands:
-      - echo Instalando Maven...
-      - wget https://www.apache.org/dist/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bin.tar.gz
-      - tar xzvf apache-maven-3.9.9-bin.tar.gz
-      - export M2_HOME=`pwd`/apache-maven-3.9.9
-      - export PATH=$M2_HOME/bin:$PATH
   pre_build:
     commands:
-      - echo Iniciando build em `date`
-      - mvn --version
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region sa-east-1 | docker login --username AWS --password-stdin 593793055971.dkr.ecr.sa-east-1.amazonaws.com
   build:
     commands:
-      - echo Compilando a aplicação Java...
-      - mvn clean package
+      - echo Building the Docker image...
+      - docker build -t schambeck/api-aws .
+      - docker tag schambeck/api-aws:latest 593793055971.dkr.ecr.sa-east-1.amazonaws.com/schambeck/api-aws:latest
   post_build:
     commands:
-      - echo Build concluído em `date`
+      - echo Pushing the Docker image...
+      - docker push 593793055971.dkr.ecr.sa-east-1.amazonaws.com/schambeck/api-aws:latest
+
 artifacts:
+  type: zip
   files:
-    - target/*.jar
-    - appspec.yml
-    - scripts/**
-  discard-paths: yes
+    - '**/*'
