@@ -10,4 +10,4 @@ COPY pom.xml api-aws
 WORKDIR /workspace/app/api-aws
 RUN ../mvnw package -DskipTests
 WORKDIR /workspace/app/api-aws/target
-ENTRYPOINT ["java", "-jar", "api-aws*.jar"]
+ENTRYPOINT ["java", "-jar", "api-aws-1.0.0.jar"]
