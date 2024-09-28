@@ -13,7 +13,9 @@ phases:
       - echo Building the Docker image...
       - ls -lah
       - docker images
-      - docker build -t schambeck/api-aws:latest .
+      - docker build -t schambeck/api-aws .
+      - ls -lah
+      - docker images
       - docker tag schambeck/api-aws:latest 593793055971.dkr.ecr.sa-east-1.amazonaws.com/schambeck/api-aws:latest
 #      - docker build -t api-aws:latest .
 #      - docker tag api-aws:latest 593793055971.dkr.ecr.sa-east-1.amazonaws.com/schambeck/api-aws:latest
