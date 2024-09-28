@@ -9,7 +9,6 @@ COPY src api-aws/src
 COPY pom.xml api-aws
 WORKDIR /workspace/app/api-aws
 RUN ../mvnw package -DskipTests
-WORKDIR /workspace/app/api-aws/target
 
 FROM amazoncorretto:17-alpine-jdk
 ARG TARGET=/workspace/app/api-aws/target
