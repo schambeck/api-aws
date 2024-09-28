@@ -1,3 +1,3 @@
 #!/bin/bash
-
-java -jar /tmp/api-aws-1.0.0.jar > /dev/null 2> /dev/null < /dev/null &
+echo "Iniciando a nova versão da aplicação..."
+nohup java -jar /opt/api-aws/api-aws-1.0.0.jar > /var/log/api-aws.log 2>&1 &

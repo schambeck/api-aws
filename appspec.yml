@@ -1,13 +1,19 @@
 version: 0.0
-
 os: linux
-
 files:
-  - source: /
-    destination: /tmp
-
+  - source: target/api-aws-1.0.0.jar
+    destination: /opt/api-aws/
+permissions:
+  - object: /opt/api-aws/api-aws-1.0.0.jar
+    owner: root
+    group: root
+    mode: 755
 hooks:
-  ApplicationStart:
+  BeforeInstall:
+    - location: scripts/stop-process.sh
+      timeout: 300
+      runas: root
+  AfterInstall:
     - location: scripts/start-process.sh
-      timeout: 180
+      timeout: 300
       runas: root

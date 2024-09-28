@@ -4,13 +4,26 @@ phases:
   install:
     runtime-versions:
       java: corretto17
+    commands:
+      - echo Instalando Maven...
+      - wget https://www.apache.org/dist/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bin.tar.gz
+      - tar xzvf apache-maven-3.9.9-bin.tar.gz
+      - export M2_HOME=`pwd`/apache-maven-3.9.9
+      - export PATH=$M2_HOME/bin:$PATH
+  pre_build:
+    commands:
+      - echo Iniciando build em `date`
+      - mvn --version
   build:
     commands:
-      - mvn clean install
-
+      - echo Compilando a aplicação Java...
+      - mvn clean package
+  post_build:
+    commands:
+      - echo Build concluído em `date`
 artifacts:
   files:
-    - target/api-aws-1.0.0.jar
-    - scripts/start-process.sh
+    - target/*.jar
     - appspec.yml
+    - scripts/**
   discard-paths: yes
