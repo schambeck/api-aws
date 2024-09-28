@@ -1,2 +1,2 @@
 docker kill $(docker ps -q)
-docker rmi -f $(docker images -aq)
+#docker rmi -f $(docker images -aq)
