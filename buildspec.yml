@@ -4,11 +4,11 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region sa-east-1 | docker login --username AWS --password-stdin 593793055971.dkr.ecr.sa-east-1.amazonaws.com
+      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/n2f0d5x3
   build:
     commands:
       - echo Pulling the Docker image...
-      - docker pull 593793055971.dkr.ecr.sa-east-1.amazonaws.com/schambeck/api-aws:latest
+      - docker pull public.ecr.aws/n2f0d5x3/schambeck/api-aws:latest
 
 artifacts:
   type: zip
