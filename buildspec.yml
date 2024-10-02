@@ -1,10 +1,6 @@
 version: 0.2
 
 phases:
-  pre_build:
-    commands:
-      - echo Logging in to Amazon ECR...
-      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/n2f0d5x3
   build:
     commands:
       - echo Pulling the Docker image...
