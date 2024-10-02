@@ -3,7 +3,7 @@ Resources:
   - TargetService:
       Type: AWS::ECS::Service
       Properties:
-        TaskDefinition: "arn:aws:ecs:sa-east-1:593793055971:task/cluster-api-aws/68ae4da26a5d457a991e44462be936ee"
+        TaskDefinition: "arn:aws:ecs:sa-east-1:593793055971:task-definition/task-definition-api-aws:3"
         LoadBalancerInfo:
           ContainerName: "api-aws"
           ContainerPort: 8080
