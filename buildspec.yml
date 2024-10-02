@@ -7,13 +7,8 @@ phases:
       - aws ecr get-login-password --region sa-east-1 | docker login --username AWS --password-stdin 593793055971.dkr.ecr.sa-east-1.amazonaws.com
   build:
     commands:
-      - echo Building the Docker image...
-      - docker build -t schambeck/api-aws .
-      - docker tag schambeck/api-aws:latest 593793055971.dkr.ecr.sa-east-1.amazonaws.com/schambeck/api-aws:latest
-  post_build:
-    commands:
-      - echo Pushing the Docker image...
-      - docker push 593793055971.dkr.ecr.sa-east-1.amazonaws.com/schambeck/api-aws:latest
+      - echo Pulling the Docker image...
+      - docker pull 593793055971.dkr.ecr.sa-east-1.amazonaws.com/schambeck/api-aws:latest
 
 artifacts:
   type: zip
