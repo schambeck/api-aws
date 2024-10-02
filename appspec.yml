@@ -1,14 +1,9 @@
 version: 0.0
-os: linux
-files:
-  - source: /
-    destination: /usr/src/app/
-    file_exists_behavior: OVERWRITE
-
-hooks:
-  BeforeInstall:
-    - location: scripts/before-install.sh
-      runas: root
-  ApplicationStart:
-    - location: scripts/application-start.sh
-      runas: root
+Resources:
+  - TargetService:
+      Type: AWS::ECS::Service
+      Properties:
+        TaskDefinition: "arn:aws:ecs:sa-east-1:593793055971:task/cluster-api-aws/68ae4da26a5d457a991e44462be936ee"
+        LoadBalancerInfo:
+          ContainerName: "api-aws"
+          ContainerPort: 8080
