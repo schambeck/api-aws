@@ -3,8 +3,13 @@ version: 0.2
 phases:
   build:
     commands:
-      - echo Pulling the Docker image...
-      - docker pull public.ecr.aws/n2f0d5x3/schambeck/api-aws:latest
+      - echo Building the Docker image...
+      - docker build -t schambeck/api-aws .
+      - docker tag schambeck/api-aws:latest public.ecr.aws/n2f0d5x3/schambeck/api-aws:latest
+  post_build:
+    commands:
+      - echo Pushing the Docker image...
+      - docker push public.ecr.aws/n2f0d5x3/schambeck/api-aws:latest
 
 artifacts:
   type: zip
