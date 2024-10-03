@@ -1,12 +1,16 @@
 version: 0.2
 
 phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/n2f0d5x3
   build:
     commands:
-      - echo Pulling the Docker image...
-      - docker pull public.ecr.aws/n2f0d5x3/schambeck/api-aws:latest
-
-artifacts:
-  type: zip
-  files:
-    - '**/*'
+      - echo Building the Docker image...
+      - docker build -t schambeck/api-aws .
+      - docker tag schambeck/api-aws:latest public.ecr.aws/n2f0d5x3/schambeck/api-aws:latest
+  post_build:
+    commands:
+      - echo Pushing the Docker image...
+      - docker push public.ecr.aws/n2f0d5x3/schambeck/api-aws:latest
