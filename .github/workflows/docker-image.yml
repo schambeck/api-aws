@@ -15,4 +15,4 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag api-aws:$(date +%s)
+      run: docker build . --file Dockerfile --tag api-aws:$(date +%s) && docker push public.ecr.aws/n2f0d5x3/schambeck/api-aws:latest
