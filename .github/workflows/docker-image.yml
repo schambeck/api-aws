@@ -13,14 +13,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: AWS Login
-      uses: ItsKarma/aws-cli@v1.70.0
-      with:
-        args: aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/n2f0d5x3
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_DEFAULT_REGION: "sa-east-1"
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build -t schambeck/api-aws . && docker tag schambeck/api-aws:latest public.ecr.aws/n2f0d5x3/schambeck/api-aws:latest && docker push public.ecr.aws/n2f0d5x3/schambeck/api-aws:latest
+      - name: Login to Amazon ECR Public
+        id: login-ecr-public
+        uses: aws-actions/amazon-ecr-login@v2
+        with:
+          registry-type: public
+
+      - name: Build, tag, and push docker image to Amazon ECR Public
+        env:
+          REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
+          REGISTRY_ALIAS: my-ecr-public-registry-alias
+          REPOSITORY: public.ecr.aws/n2f0d5x3/schambeck/api-aws
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
+          docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
