@@ -30,8 +30,8 @@ jobs:
         env:
           REGISTRY: ${{ steps.login-ecr-public.outputs.registry }}
           REGISTRY_ALIAS: n2f0d5x3
-          REPOSITORY: schambeck/api-aws:latest
-          IMAGE_TAG: ${{ github.sha }}
+          REPOSITORY: schambeck/api-aws
+          IMAGE_TAG: latest
         run: |
           docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
